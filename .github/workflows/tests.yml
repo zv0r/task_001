@@ -14,7 +14,14 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-
+    
+    - name: Check code formatting
+      run: |
+        if [ -n "$(clang-format -output-replacements-xml -style=./clang/.clang-format $(find src -name '*.c' -o -name '*.h'))" ]; then
+          echo "Code formatting issues found. Please run clang-format to fix them."
+          exit 1
+        fi
+        
     - name: Compile roman_to_arabic
       run: |
         gcc -Wall -Werror -Wextra -std=c11 -o ./src/roman_to_arabic ./src/roman_to_arabic.c
@@ -32,10 +39,3 @@ jobs:
       with:
         name: pytest-results
         path: pytest_report.html
-
-    - name: Check code formatting
-      run: |
-        if [ -n "$(clang-format -output-replacements-xml -style=./clang/.clang-format $(find src -name '*.c' -o -name '*.h'))" ]; then
-          echo "Code formatting issues found. Please run clang-format to fix them."
-          exit 1
-        fi
