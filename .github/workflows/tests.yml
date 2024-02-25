@@ -50,11 +50,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install pytest pytest-html
+        pip install -r tests/requirements.txt
 
     - name: Run Pytest
       run: |
-        pytest --color=yes -v --tb=short --html=pytest_report.html tests/test_roman_to_arabic_pytest.py
+        pytest --color=yes -v --tb=short --html=pytest_report.html tests
 
     - name: Upload test results
       uses: actions/upload-artifact@v2
