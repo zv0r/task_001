@@ -10,6 +10,10 @@ def test_roman_to_arabic_MMXXIV():
     assert result.returncode == 0
     assert int(result.stdout.strip()) == 2024
 
+def test_roman_to_arabic_MCMLXXXIX():
+    result = run([B_FILE_PATH], input='MCMLXXXIX', encoding='utf-8', stdout=PIPE)
+    assert result.returncode == 0
+    assert int(result.stdout.strip()) == 1989
 
 def test_roman_to_arabic_MMCCLXXXVIII():
     result = run([B_FILE_PATH], input='MMCCLXXXVIII', encoding='utf-8', stdout=PIPE)
